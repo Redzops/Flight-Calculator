@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Calculator</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.5/brython.min.js"></script>
+</head>
+<body onload="brython()">
+<script type="text/python">
+from browser import document
+
+def calculate_time(event):
+    try:
+        distance_input = document['distanceInput'].value
+        speed_input = document['speedInput'].value
+        distance = float(distance_input)
+        speed = float(speed_input)
+        time = distance / speed
+        document['result'].innerHTML = f"The time required to travel {distance} nautical miles at a speed of {speed} knots is: {time} hours"
+    except ValueError:
+        document['result'].innerHTML = "Please enter valid numeric values for distance and speed."
+
+def calculate_distance(event):
+    try:
+        speed_input = document['speedInput'].value
+        time_input = document['timeInput'].value
+        speed = float(speed_input)
+        time = float(time_input)
+        distance = speed * time
+        document['result'].innerHTML = f"The distance traveled at a speed of {speed} knots in {time} hours is: {distance} nautical miles"
+    except ValueError:
+        document['result'].innerHTML = "Please enter valid numeric values for speed and time."
+
+def calculate_speed(event):
+    try:
+        distance_input = document['distanceInput'].value
+        time_input = document['timeInput'].value
+        distance = float(distance_input)
+        time = float(time_input)
+        speed = distance / time
+        document['result'].innerHTML = f"The speed required to travel {distance} nautical miles in {time} hours is: {speed} knots"
+    except ValueError:
+        document['result'].innerHTML = "Please enter valid numeric values for distance and time."
+
+document['calculateTimeButton'].bind('click', calculate_time)
+document['calculateDistanceButton'].bind('click', calculate_distance)
+document['calculateSpeedButton'].bind('click', calculate_speed)
+</script>
+
+<h2>Flight Calculator</h2>
+
+<form id="flightForm">
+    <label for="speedInput">Enter speed (knots):</label>
+    <input type="number" id="speedInput" name="speedInput" required><br><br>
+
+    <label for="timeInput">Enter time (hours):</label>
+    <input type="number" id="timeInput" name="timeInput" required><br><br>
+
+    <label for="distanceInput">Enter distance (nautical miles):</label>
+    <input type="number" id="distanceInput" name="distanceInput" required><br><br>
+
+    <button id="calculateTimeButton" type="button">Calculate Time</button>
+    <button id="calculateDistanceButton" type="button">Calculate Distance</button>
+    <button id="calculateSpeedButton" type="button">Calculate Speed</button>
+</form>
+
+<div id="result"></div>
+
+</body>
+</html>
